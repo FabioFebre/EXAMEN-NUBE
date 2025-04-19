@@ -10,9 +10,8 @@
     <div class="container">
         <h1>Registro de Personal</h1>
         
-        <a href="/administrar" class="administrar-link">Administrar Registros</a>
         <div class="separator"></div>
-        <form id="registro-form" action="/registrar" method="post">
+        <form action="/registrar" method="post">
             <div class="form-group">
                 <label for="dni">DNI:</label>
                 <input type="text" id="dni" name="dni" required>
@@ -33,7 +32,7 @@
                 <label for="telefono">Teléfono:</label>
                 <input type="text" id="telefono" name="telefono">
             </div>
-            <button type="submit">Registrar</button>
+            <button type="submit" onclick="mostrarMensaje()">Registrar</button>
         </form>
     </div>
 
@@ -47,20 +46,6 @@
 
     <!-- Script para manejar el modal -->
     <script>
-        // Muestra el modal al enviar el formulario (simula el envío exitoso)
-        document.getElementById("registro-form").addEventListener("submit", function(event) {
-            event.preventDefault();  // Previene el envío real del formulario
-
-            // Aquí podrías hacer la validación o envío AJAX, para simplificar:
-            mostrarMensaje();
-
-            // Simula el envío exitoso y cierra el modal después de 3 segundos
-            setTimeout(function() {
-                // Opcional: Redirigir o limpiar el formulario después de mostrar el mensaje
-                window.location.href = "/";  // Redirige al inicio
-            }, 3000);  // Espera 3 segundos antes de redirigir
-        });
-
         function mostrarMensaje() {
             var modal = document.getElementById('modal');
             modal.style.display = 'block';
@@ -73,3 +58,5 @@
     </script>
 </body>
 </html>
+
+
