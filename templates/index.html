@@ -10,58 +10,38 @@
     <div class="container">
         <h1>Registro de Personal</h1>
         
+        <a href="/administrar" class="administrar-link">Administrar Registros</a>
         <div class="separator"></div>
-        <form id="registro-form" action="/registrar" method="post">
-            <div class="form-group">
-                <label for="dni">DNI:</label>
-                <input type="text" id="dni" name="dni" required>
+
+        <!-- Mensaje de confirmación -->
+        {% if mensaje_confirmacion %}
+            <div class="mensaje-exito">
+                <p>{{ mensaje_confirmacion }}</p>
             </div>
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
-            <div class="form-group">
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required>
-            </div>
-            <div class="form-group">
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion">
-            </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono">
-            </div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('registrar') }}">
+            <input type="text" name="dni" placeholder="DNI" required>
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="text" name="apellido" placeholder="Apellido" required>
+            <input type="text" name="direccion" placeholder="Dirección" required>
+            <input type="text" name="telefono" placeholder="Teléfono" required>
             <button type="submit">Registrar</button>
         </form>
+        
+
+      
+        <ul>
+            {% for persona in registros %}
+                <li>
+                    <p>{{ persona[2] }} {{ persona[3] }} (DNI: {{ persona[1] }})</p>
+                    <form action="{{ url_for('eliminar_registro', dni=persona[1]) }}" method="POST">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        
     </div>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarMensaje()">&times;</span>
-            <p>¡Registro exitoso!</p>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById("registro-form").addEventListener("submit", function(event) {
-            event.preventDefault();  
-            mostrarMensaje();
-
-            setTimeout(function() {
-                window.location.href = "/";  
-            }, 3000);  
-        });
-
-        function mostrarMensaje() {
-            var modal = document.getElementById('modal');
-            modal.style.display = 'block';
-        }
-
-        function cerrarMensaje() {
-            var modal = document.getElementById('modal');
-            modal.style.display = 'none';
-        }
-    </script>
 </body>
 </html>
