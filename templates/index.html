@@ -11,7 +11,7 @@
         <h1>Registro de Personal</h1>
         
         <div class="separator"></div>
-        <form action="/registrar" method="post">
+        <form id="registro-form" action="/registrar" method="post">
             <div class="form-group">
                 <label for="dni">DNI:</label>
                 <input type="text" id="dni" name="dni" required>
@@ -32,11 +32,10 @@
                 <label for="telefono">Teléfono:</label>
                 <input type="text" id="telefono" name="telefono">
             </div>
-            <button type="submit" onclick="mostrarMensaje()">Registrar</button>
+            <button type="submit">Registrar</button>
         </form>
     </div>
 
-    <!-- Modal para el mensaje de registro exitoso -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarMensaje()">&times;</span>
@@ -44,8 +43,16 @@
         </div>
     </div>
 
-    <!-- Script para manejar el modal -->
     <script>
+        document.getElementById("registro-form").addEventListener("submit", function(event) {
+            event.preventDefault();  
+            mostrarMensaje();
+
+            setTimeout(function() {
+                window.location.href = "/";  
+            }, 3000);  
+        });
+
         function mostrarMensaje() {
             var modal = document.getElementById('modal');
             modal.style.display = 'block';
@@ -58,5 +65,3 @@
     </script>
 </body>
 </html>
-
-
